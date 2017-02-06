@@ -49,7 +49,7 @@ $cars = array($porsche, $ford, $lexus, $mercedes, $mazda);
 
 $cars_matching_search = array();
 foreach ($cars as $car) {
-    if ($car->getPrice() < $_GET["price"] && $car->getMiles() < $_GET["miles"]) {
+    if ($car->getPrice() < $_GET["price"] && $car->getMiles() < $_GET["miles"] && $car->getPrice() > $_GET["min_price"]) {
         array_push($cars_matching_search, $car);
     }
 }
@@ -64,17 +64,20 @@ foreach ($cars as $car) {
     <h1>Your Car Dealership</h1>
     <ul>
         <?php
-            foreach ($cars_matching_search as $car) {
-                $our_price = $car->getPrice();
-                $our_model = $car->getModel();
-                $our_miles = $car->getMiles();
-                echo "<li> $our_model </li>";
-                echo "<ul>";
-                    echo "<li> $$our_price </li>";
-                    echo "<li> Miles: $our_miles </li>";
-                    echo "<li><img src= '$car->image_path'> </li>";
-
-                echo "</ul>";
+            if ($cars_matching_search == null){
+                echo "Sorry no cars match your search.";
+            }   else{
+                    foreach ($cars_matching_search as $car) {
+                    $our_price = $car->getPrice();
+                    $our_model = $car->getModel();
+                    $our_miles = $car->getMiles();
+                    echo "<li> $our_model </li>";
+                    echo "<ul>";
+                        echo "<li> $$our_price </li>";
+                        echo "<li> Miles: $our_miles </li>";
+                        echo "<li><img src= '$car->image_path'> </li>";
+                    echo "</ul>";
+                }
             }
         ?>
     </ul>
