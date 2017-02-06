@@ -3,13 +3,15 @@ class Car
 {
     private $make_model;
     private $price;
-    public $miles;
+    private $miles;
+    public $image_path;
 
-    function __construct($car_type, $car_price, $car_miles)
+    function __construct($car_type, $car_price, $car_miles, $picture)
     {
         $this->make_model = $car_type;
         $this->price = $car_price;
         $this->miles = $car_miles;
+        $this->image_path= $picture;
     }
 
     function getPrice()
@@ -30,24 +32,24 @@ class Car
 
 
 
-$porsche = new Car("2014 Porsche 911", 114991, 7864);
+$porsche = new Car("2014 Porsche 911", 114991, 7864, "images/911.jpg");
 
-$ford = new Car("2011 Ford F450", 55995, 14241);
+$ford = new Car("2011 Ford F450", 55995, 14241, "images/f450.jpg");
 
-$lexus = new Car("2013 Lexus RX 350", 44700, 20000);
+$lexus = new Car("2013 Lexus RX 350", 44700, 20000, "images/rx350.jpg");
 
-$mercedes = new Car("Mercedes Benz CLS550", 39900, 37979);
+$mercedes = new Car("Mercedes Benz CLS550", 39900, 37979, "images/cls550.jpg");
 
-$mazda = new Car("2016 Mazda 6", 25000, 50000);
-
-
+$mazda = new Car("2016 Mazda 6", 25000, 50000, "images/mazda6.jpg");
 
 
-$cars = array($porsche, $ford, $lexus, $mercedes);
+
+
+$cars = array($porsche, $ford, $lexus, $mercedes, $mazda);
 
 $cars_matching_search = array();
 foreach ($cars as $car) {
-    if ($car->getPrice() < $_GET["price"]) {
+    if ($car->getPrice() < $_GET["price"] && $car->getMiles() < $_GET["miles"]) {
         array_push($cars_matching_search, $car);
     }
 }
@@ -70,6 +72,8 @@ foreach ($cars as $car) {
                 echo "<ul>";
                     echo "<li> $$our_price </li>";
                     echo "<li> Miles: $our_miles </li>";
+                    echo "<li><img src= '$car->image_path'> </li>";
+
                 echo "</ul>";
             }
         ?>
